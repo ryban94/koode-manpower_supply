@@ -1,0 +1,380 @@
+
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+<head>
+    <meta charset="utf-8">
+    <title>KOODE</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
+    </div>
+    <!-- Spinner End -->
+
+
+
+    <!-- Navbar Start -->
+    <div class="container-fluid bg-white sticky-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg bg-white navbar-light py-2 py-lg-0">
+                <a href="{% url 'home1' %}" class="navbar-brand">
+                    <img class="img-fluid" style="border-bottom-left-radius: 40px; border-bottom-right-radius: 40px;margin-top: -40px;" src="{% static 'img/logomalblack1.png' %}" alt="Logo">
+                </a>
+                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                        <a href="{% url 'home1' %}" class="nav-item nav-link active">Home</a>
+                        <a href="{% url 'about' %}" class="nav-item nav-link">About</a>
+                        <a href="{% url 'career' %}" class="nav-item nav-link">Careers</a>
+                        <a href="{% url 'contactus' %}"  class="nav-item nav-link">Contact Us</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Jobs</a>
+                            <div class="dropdown-menu bg-light rounded-0 m-0">
+                                <a href="{% url 'view_daily' cat_name='Daily Wages' %}" class="dropdown-item">Daily Wages</a>
+                                <a href="{% url 'view_perminent' cat_name='Perminent Recruitment' %}" class="dropdown-item" name="perminent">Perminent Recruitment</a>
+                                <a href="{% url 'view_contract' cat_name='Contract Recruitment' %}" class="dropdown-item" name="contract">Contract Recruitment</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="border-start ps-4 d-none d-lg-block">
+                        <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+
+      </form>
+                    </div>
+                    <div style="margin-left: 50px;">
+                {% if request.session.pfname %}
+                    <a href="{% url 'partner_log' %}"> <button class="dropdown-item" type="button">{{request.session.pfname}}</button></a>
+                    <a href="{% url 'partner_logout' %}"> <button class="dropdown-item" type="button">logout</button></a>
+                        {% elif request.session.cfname %}
+                        <div class="nav-item dropdown">
+                        <a href="{% url 'client_log' %}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{{request.session.cfname}}</a>
+                            <div class="dropdown-menu bg-light rounded-0 m-0">
+                                <a href="{% url 'clienthome' %}" class="dropdown-item">Profile</a>
+                                <a href="{% url 'postclient' %}" class="dropdown-item">Post Ad</a>
+                                <a href="{% url 'client_logout' %}" class="dropdown-item">Log out</a>
+                            </div>
+                        </div>
+
+                        {% else %}
+                        <a href="{% url 'mainlog' %}" class="nav-item nav-link">
+                            <button type="button" class="btn btn-success">Log In</button>
+
+                            <button type="button" class="btn btn-success">Sign Up</button>
+                             </a>
+                        {% endif %}
+
+                </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+
+
+
+    <!-- About Start -->
+
+<!--    &lt;!&ndash; About End &ndash;&gt;-->
+    <br><br>
+    <br>
+
+                <div class="card card-success">
+     <div class="card-header" >
+                <h3 class="card-title" style="text-align: center;font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" >DAILY WAGES</h3>
+              </div>
+     <div ><h1>    </h1></div>
+{% for i in data %}
+<div class="item" style="background-color: rgb(242, 255, 238); padding-top: 2%;padding-bottom: 2%;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', san                                                                                                                                                                                                                         s-serif;border-style:double;">
+
+    <div>
+  
+
+						<div class="single-slide-item slide1">
+
+							<div class="container">
+
+								<div class="welcome-hero-content">
+
+									<div class="                                                                                                                                                                             row">
+										<div class="col-sm-7">
+											<div class="single-welcome-hero">
+												<div class="welcome-hero-txt">
+<!--													<h4>{{i.acat}}</h4>-->
+													<h2>{{i.atitle}}</h2>
+													<p>
+														{{i.adisc}}
+													</p>
+													<div class="packages-price">
+														<p>
+                                                          Rs :{{i.ars}}
+
+														</p>
+													</div>
+                                                  <p>
+														Location :{{i.aloc}}
+													</p>
+                                                  <p>
+														Date :{{i.adate}}
+													</p>
+                                                    <a href="tel:{{i.phone}}">
+                                                    <p>
+                                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" >
+             Phone :{{i.aphone}}
+            </button>
+
+													</p>
+                                                    </a>
+                                                  <!-- <p>
+														Keyword :{{i.akey}}
+													</p> -->
+                                                    {% if request.session.pfname %}
+                                                    <form action=" ">
+<!--													<button class="btn btn-outline-success" onclick="window.location.href='#'">-->
+<!--														<span class="lnr lnr-plus-circle"></span>-->
+<!--														View Mobile Number-->
+<!--													</button>-->
+
+
+
+
+<!--&lt;!&ndash; Button trigger modal &ndash;&gt;<input type="text" class="form-control"  value="{{i.ausername}}" name="ausername1">-->
+<!--                            <input type="text" class="form-control"  value="{{i.aphone}}" name="aphone1">-->
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" >
+             View Mobile Number
+            </button>
+
+
+<!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                 <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+
+      <div class="modal-body">
+          <input type="text" id="address" name="address"  value="{{ausername1}}">
+          {{ausername1}}
+          {{aphone1}}
+
+      </div>
+
+
+<!--      <div class="modal-body">-->
+<!--&lt;!&ndash;<input type="text" value="{{x.aphone}}">&ndash;&gt;-->
+<!--          {{ x}}-->
+
+<!--      </div>-->
+
+<!--      <div class="modal-footer">-->
+<!--        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+<!--        <button type="button" class="btn btn-primary">Save changes</button>-->
+<!--      </div>-->
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+                                                      </form>
+                                                    {% endif%}
+                                                  <h1></h1>
+<!--                                                  <form action=" ">-->
+<!--													<button class="btn btn-outline-success" onclick="window.location.href='#'">-->
+<!--														Chat Now-->
+<!--													</button>-->
+<!--                                                    </form>-->
+												</div><!--/.welcome-hero-txt-->
+											</div><!--/.single-welcome-hero-->
+										</div><!--/.col-->
+										<div class="col-sm-5">
+											<div class="single-welcome-hero">
+												<div class="welcome-hero-img" style="margin-top: 15%;">
+													<img src="{{i.aphoto.url}}" width="200px" height="200px" style="border-style:double;">
+												</div><!--/.welcome-hero-txt-->
+											</div><!--/.single-welcome-hero-->
+										</div><!--/.col-->
+									</div><!--/.row-->
+
+								</div><!--/.welcome-hero-content-->
+
+							</div><!-- /.container-->
+
+						</div>
+        </div><!-- /.single-slide-item-->
+
+					</div><!-- /.item .active-->
+                    <!-- <div><br></div> -->
+{% endfor %}
+
+    <!-- /.content -->
+  </div>
+
+
+
+
+
+
+
+
+<!--    &lt;!&ndash; Store Start &ndash;&gt;-->
+
+<!--    &lt;!&ndash; Store End &ndash;&gt;-->
+
+
+<!--    &lt;!&ndash; Testimonial Start &ndash;&gt;-->
+
+<!--    &lt;!&ndash; Testimonial End &ndash;&gt;-->
+
+
+<!--    &lt;!&ndash; Contact Start &ndash;&gt;-->
+
+<!--    &lt;!&ndash; Contact Start &ndash;&gt;-->
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark footer mt-5 py-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-primary mb-4">Our Office</h4>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt text-primary me-3"></i>Aspin Wall, Edappally</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt text-primary me-3"></i>+984700110033</p>
+                    <p class="mb-2"><i class="fa fa-envelope text-primary me-3"></i>www.koode.com</p>
+                    <div class="d-flex pt-3">
+                        <a class="btn btn-square btn-primary rounded-circle me-2" href=""><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-square btn-primary rounded-circle me-2" href=""><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-square btn-primary rounded-circle me-2" href=""><i class="fab fa-youtube"></i></a>
+                        <a class="btn btn-square btn-primary rounded-circle me-2" href=""><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-primary mb-4">Quick Links</h4>
+                    <a class="btn btn-link" href="">About Us</a>
+                    <a class="btn btn-link" href="">Contact Us</a>
+                    <a class="btn btn-link" href="">Our Services</a>
+                    <a class="btn btn-link" href="">Terms & Condition</a>
+                    <a class="btn btn-link" href="">Support</a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-primary mb-4">Business Hours</h4>
+                    <p class="mb-1">Monday - Friday</p>
+                    <h6 class="text-light">09:00 am - 07:00 pm</h6>
+                    <p class="mb-1">Saturday</p>
+                    <h6 class="text-light">09:00 am - 12:00 pm</h6>
+                    <p class="mb-1">Sunday</p>
+                    <h6 class="text-light">Closed</h6>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-primary mb-4">Newsletter</h4>
+                    <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+                    <div class="position-relative w-100">
+                        <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
+                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Copyright Start -->
+    <div class="container-fluid copyright py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    &copy; <a class="fw-medium" href="#">KOODE</a>, All Right Reserved.
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                    Designed By <a class="fw-medium" href="https://htmlcodex.com">Rybz Design</a> Distributed By <a class="fw-medium" href="">The RAY</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Copyright End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    {% if messages %}
+            {% for i in messages %}
+              {% if i.tags == 'warning' %}
+                 <script>
+                 swal('{{i}}','','warning')
+                 </script>
+              {% elif i.tags == 'error' %}
+                 <script>
+                 swal('{{i}}','','error')
+                 </script>
+              {% else %}
+                 <script>
+                 swal('{{i}}','','success')
+                 </script>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+
+</body>
+
+</html>
